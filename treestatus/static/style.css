@@ -170,7 +170,7 @@ td.tableSheriff, td.tableAdmin {
     margin-bottom: 40px;
 }
 
-#tableWrapper h2, #modify h2, #helpHeading{
+#tableWrapper h2, #modify h2, #helpHeading, #delete h2{
     text-align: left;
 }
 
@@ -180,6 +180,13 @@ td.tableSheriff, td.tableAdmin {
 }
 
 #modify {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 720px;
+}
+
+#delete {
     display: table;
     margin-left: auto;
     margin-right: auto;

@@ -80,6 +80,17 @@
                     </tbody>
                 </table>
             </div>
+            {% if 'REMOTE_USER' in request.environ: -%}
+            <div id="delete">
+                <h2>Delete this tree</h2>
+                <form method="post" action="/{{tree.tree}}">
+                    <input type="hidden" name="token" value="{{token}}" />
+                    <input type="hidden" name="_method" value="DELETE" />
+                    Why? <input type="text" name="reason" />
+                    <span style="text-align: center"><input class="submit" type="submit" value="DELETE THIS TREE"/></span>
+                </form>
+            </div>
+        {% endif -%}
         </div>
         <div id="footer">
             <span class="footerWrapper">

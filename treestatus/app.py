@@ -583,7 +583,7 @@ def delete_tree(tree):
         log.info("bad request; missing reason")
         flask.abort(400)
     status.del_tree(request.environ['REMOTE_USER'], tree, request.form['reason'])
-    return flask.redirect("/" + tree, 303)
+    return flask.redirect("/?nc", 303)
 
 @app.before_request
 def create_session():
