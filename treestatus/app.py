@@ -541,6 +541,9 @@ def modify_users():
 @app.route('/', methods=['POST'])
 def add_or_set_trees():
     validate_write_request()
+ 
+    admin = status.get_user(request.environ['REMOTE_USER']) 
+    session = request.session
 
     if request.form.get('restore'):
         # Restore stacked status
@@ -565,6 +568,16 @@ def add_or_set_trees():
         if request.form['newtree'] not in status.get_trees():
             # We don't have this yet, so go create it!
             status.add_tree(request.environ['REMOTE_USER'], request.form['newtree'])
+
+    for k in request.form.keys():
+        if not k.startswith("delete:"):
+           continue
+        treeName = k[len("delete:"):]
+        t = session.query(model.DbTree).filter_by(tree=treeName).one()
+        if t:
+           log.info("%s is deleting %s", admin.name, t.tree)
+           status.del_tree(request.environ['REMOTE_USER'], t.tree, '') 
+
     return flask.redirect('/?nc', 303)
 
 

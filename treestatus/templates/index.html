@@ -28,6 +28,9 @@
                         <th class="tableCheck"></th>
                         {% endif -%}
                         <th class="tableName">Name</th><th class="tableState">State</th><th class="tableReason">Reason</th>
+                        {% if 'REMOTE_USER' in request.environ and user and user.is_admin: -%}
+                        <th class="deleteCol">&nbsp;</th>
+                        {% endif -%}
                       </tr>
                   </thead>
                   <tbody>
@@ -43,6 +46,10 @@
                           </td>
                           <td class="tableState {{tree.status.lower().replace(" ", "_")}}">{{tree.status.upper()}}</td>
                           <td class="tableReason">{{tree.reason or ""}}</td>
+                          {% if 'REMOTE_USER' in request.environ and user and user.is_admin: %}
+                          <td class="deleteCol">
+                             <input type="submit" name="delete:{{tree.tree}}" value="Delete" /></td>
+                          {% endif -%}  
                       </tr>
                       {% endfor -%}
                   </tbody>
